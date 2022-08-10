@@ -7,9 +7,9 @@ Backend project with the following features:
 - LOGIN
 
 ## Before running the project
+- Install dependencies with the following command: `npm i`
 - Create a dataSource.js file based on dataSource.example.js
 - Create a .env file based on .env.example
-- Install dependencies with the following command: `npm i`
 
 ## Running the project
 - Development: `npm run dev`
