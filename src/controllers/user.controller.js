@@ -5,8 +5,27 @@ const createUser = async (req, res) => {
   try {
     const user = req.body;
 
-    await userService.createUserService(User, user);
-    res.status(201).send({user, message: 'User created'});
+    const newUser = await userService.createUserService(User, user);
+    res.status(201).send({newUser, message: 'User created'});
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
+const getUserById = async (req, res) => {
+  try {
+    const userId = req.params;
+    const user = await userService.getUserByIdService(User,userId);
+    res.status(201).send({user, message: 'User found'});
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
+const getUsers = async (req, res) => {
+  try {
+    const user = await userService.getUsersService(User);
+    res.status(201).send({user, message: 'User found'});
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -14,4 +33,6 @@ const createUser = async (req, res) => {
 
 module.exports = {
   createUser,
+  getUserById,
+  getUsers
 }
