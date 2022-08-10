@@ -13,21 +13,35 @@ const createUser = async (req, res) => {
 }
 
 const getUserById = async (req, res) => {
+  let code = 200;
   try {
     const userId = req.params;
     const user = await userService.getUserByIdService(User,userId);
-    res.status(201).send({user, message: 'User found'});
+    
+    if(user.error) {
+      code = 404;
+      throw new Error(user.error);
+    }
+
+    res.status(code).send({user, message: 'User found'});
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(code).send({ message: error.message });
   }
 }
 
 const getUsers = async (req, res) => {
+  let code = 200;
   try {
     const user = await userService.getUsersService(User);
-    res.status(201).send({user, message: 'User found'});
+    
+    if(user.length === 0) {
+      code = 404;
+      throw new Error(user.error);
+    }
+
+    res.status(code).send({user, message: 'Users found'});
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(code).send({ message: error.message });
   }
 }
 

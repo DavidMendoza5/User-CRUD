@@ -19,6 +19,8 @@ const createUserService = async (schema, data) => {
 const getUserByIdService = async (schema, id) => {
   try {
     const response = await repository.getById(schema, id);
+
+    if(!response) return {error: 'No existe el usuario', code: 404}
     
     const data = {
       id: response.id,
@@ -28,13 +30,15 @@ const getUserByIdService = async (schema, id) => {
 
     return data;
   } catch (error) {
-    throw new Error(error.message);
+    return {error: error.message, code: 500};
   }
 }
 
 const getUsersService = async (schema) => {
   try {
     const response = await repository.get(schema);
+
+    if(response.length === 0) return {error: 'No hay usuarios', code: 404}
     
     const data = response.map((element) => {
       const newData = {
