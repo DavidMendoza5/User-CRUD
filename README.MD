@@ -8,7 +8,6 @@ Backend project with the following features:
 
 ## Before running the project
 - Install dependencies with the following command: `npm i`
-- Create a dataSource.js file based on dataSource.example.js
 - Create a .env file based on .env.example
 
 ## Running the project
