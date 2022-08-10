@@ -2,6 +2,18 @@ const User = require('../schemas/user.schema');
 const userService = require('../services/user.service');
 const encryptPassword = require('../utils/encrypt');
 
+const logIn = async (req, res) => {
+  try {
+    const user = req.body;
+
+    const token = await userService.logInUserService(User, user);
+
+    res.status(201).send({token, message: 'Sesión iniciada'});
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
 const createUser = async (req, res) => {
   try {
     const user = req.body;
@@ -78,4 +90,5 @@ module.exports = {
   getUsers,
   updateUser,
   deleteUser,
+  logIn,
 }

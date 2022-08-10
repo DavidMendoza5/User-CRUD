@@ -6,10 +6,11 @@ const User = require('../schemas/user.schema');
 
 const api = Router();
 
-api.get('/users', userController.getUsers);
-api.get('/users/:id', [middleware.validateData(userValidation.getById, 'params'), middleware.validateId(User,'params')], userController.getUserById);
-api.post('/users',  [middleware.validateData(userValidation.create, 'body')], userController.createUser);
-api.put('/users/:id', [middleware.validateData(userValidation.getById, 'params'), middleware.validateId(User,'params')], userController.updateUser);
-api.delete('/users/:id', [middleware.validateData(userValidation.getById, 'params'), middleware.validateId(User,'params')], userController.deleteUser);
+api.post('/login', userController.logIn);
+api.get('/users', [middleware.verifyToken], userController.getUsers);
+api.get('/users/:id', [middleware.verifyToken, middleware.validateData(userValidation.getById, 'params'), middleware.validateId(User,'params')], userController.getUserById);
+api.post('/users',  [middleware.verifyToken, middleware.validateData(userValidation.create, 'body')], userController.createUser);
+api.put('/users/:id', [middleware.verifyToken, middleware.validateData(userValidation.getById, 'params'), middleware.validateId(User,'params')], userController.updateUser);
+api.delete('/users/:id', [middleware.verifyToken, middleware.validateData(userValidation.getById, 'params'), middleware.validateId(User,'params')], userController.deleteUser);
 
 module.exports = api;

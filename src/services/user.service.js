@@ -1,4 +1,6 @@
 const repository = require('../repository/abstract.repository');
+const validateCredentials = require('../utils/validate.credentials');
+const generateToken = require('../utils/jwt');
 
 const createUserService = async (schema, data) => {
   try {
@@ -18,7 +20,7 @@ const createUserService = async (schema, data) => {
 
 const getUserByIdService = async (schema, id) => {
   try {
-    const response = await repository.getById(schema, id);
+    const response = await repository.getOne(schema, id);
     
     const data = {
       id: response.id,
@@ -72,10 +74,27 @@ const deleteUserService = async (schema, id) => {
   }
 }
 
+const logInUserService = async (schema, data) => {
+  try {
+    const username = { username: data.username }
+    const response = await repository.getOne(schema, username);
+
+    const valid = await validateCredentials(data.password, response.password);
+    if(!valid) throw new Error('Error en las credenciales');
+
+    const token = generateToken(response);
+    
+    return token;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createUserService,
   getUserByIdService,
   getUsersService,
   updateUserService,
   deleteUserService,
+  logInUserService,
 }
