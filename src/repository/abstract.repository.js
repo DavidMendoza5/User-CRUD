@@ -9,9 +9,9 @@ const createInDB = async (schema, data) => {
   }
 }
 
-const getById = async (schema, id) => {
+const getOne = async (schema, filter) => {
   try {
-    const data = await dataSource.getRepository(schema).findOneBy(id);
+    const data = await dataSource.getRepository(schema).findOneBy(filter);
     return data;
   } catch (error) {
     throw new Error('Error al buscar en la base de datos');
@@ -46,7 +46,7 @@ const deleteData = async (schema, id) => {
 
 module.exports = {
   createInDB,
-  getById,
+  getOne,
   get,
   update,
   deleteData,
