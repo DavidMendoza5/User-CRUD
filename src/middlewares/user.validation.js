@@ -18,7 +18,7 @@ const create = Joi.object({
   }),
 });
 
-const get = Joi.object({
+const getById = Joi.object({
   id: Joi.string()
   .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
   .required()
@@ -32,5 +32,5 @@ const get = Joi.object({
 
 module.exports = {
   create,
-  get,
+  getById,
 }

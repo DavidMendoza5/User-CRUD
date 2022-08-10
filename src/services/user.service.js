@@ -55,8 +55,19 @@ const getUsersService = async (schema) => {
   }
 }
 
+const updateUserService = async (schema, id, data) => {
+  try {
+    const response = await repository.update(schema, id, data);
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createUserService,
   getUserByIdService,
-  getUsersService
+  getUsersService,
+  updateUserService
 }

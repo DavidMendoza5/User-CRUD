@@ -27,8 +27,18 @@ const get = async (schema) => {
   }
 }
 
+const update = async (schema, id, data) => {
+  try {
+    const dataUpdated = await dataSource.getRepository(schema).update(id, data);
+    return dataUpdated;
+  } catch (error) {
+    throw new Error('Error al actualizar en la base de datos');
+  }
+}
+
 module.exports = {
   createInDB,
   getById,
   get,
+  update,
 }
