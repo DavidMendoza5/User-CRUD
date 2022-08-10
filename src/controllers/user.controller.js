@@ -1,9 +1,11 @@
 const User = require('../schemas/user.schema');
 const userService = require('../services/user.service');
+const encryptPassword = require('../utils/encrypt');
 
 const createUser = async (req, res) => {
   try {
     const user = req.body;
+    user.password = await encryptPassword(user.password);
 
     const newUser = await userService.createUserService(User, user);
     res.status(201).send({newUser, message: 'Usuario creado'});
