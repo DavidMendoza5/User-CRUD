@@ -36,9 +36,18 @@ const update = async (schema, id, data) => {
   }
 }
 
+const deleteData = async (schema, id) => {
+  try {
+    await dataSource.getRepository(schema).delete(id);
+  } catch (error) {
+    throw new Error('Error al eliminar en la base de datos');
+  }
+}
+
 module.exports = {
   createInDB,
   getById,
   get,
   update,
+  deleteData,
 }

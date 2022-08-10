@@ -19,8 +19,6 @@ const createUserService = async (schema, data) => {
 const getUserByIdService = async (schema, id) => {
   try {
     const response = await repository.getById(schema, id);
-
-    if(!response) return {error: 'No existe el usuario', code: 404}
     
     const data = {
       id: response.id,
@@ -30,7 +28,7 @@ const getUserByIdService = async (schema, id) => {
 
     return data;
   } catch (error) {
-    return {error: error.message, code: 500};
+    throw new Error(error.message);
   }
 }
 
@@ -65,9 +63,19 @@ const updateUserService = async (schema, id, data) => {
   }
 }
 
+const deleteUserService = async (schema, id) => {
+  try {
+    await repository.deleteData(schema, id);
+
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createUserService,
   getUserByIdService,
   getUsersService,
-  updateUserService
+  updateUserService,
+  deleteUserService,
 }

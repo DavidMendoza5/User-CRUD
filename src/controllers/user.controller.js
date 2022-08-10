@@ -48,16 +48,27 @@ const getUsers = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  let code = 200;
   try {
     const userId = req.params;
     const user = req.body;
 
     await userService.updateUserService(User, userId, user);
 
-    res.status(code).send({user, message: 'Usuario actualizado'});
+    res.status(200).send({user, message: 'Usuario actualizado'});
   } catch (error) {
-    res.status(code).send({ message: error.message });
+    res.status(500).send({ message: error.message });
+  }
+}
+
+const deleteUser = async (req, res) => {
+  try {
+    const userId = req.params;
+
+    await userService.deleteUserService(User, userId);
+
+    res.status(204).send({message: 'Usuario eliminado'});
+  } catch (error) {
+    res.status(500).send({ message: error.message });
   }
 }
 
@@ -66,4 +77,5 @@ module.exports = {
   getUserById,
   getUsers,
   updateUser,
+  deleteUser,
 }
