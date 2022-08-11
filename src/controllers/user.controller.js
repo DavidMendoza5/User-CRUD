@@ -3,14 +3,20 @@ const userService = require('../services/user.service');
 const encryptPassword = require('../utils/encrypt');
 
 const logIn = async (req, res) => {
+  let code = 200;
   try {
     const user = req.body;
 
     const token = await userService.logInUserService(User, user);
 
-    res.status(201).send({token, message: 'Sesión iniciada'});
+    if(token.error) {
+      code = 401;
+      throw new Error('Error en las credenciales');
+    }
+    
+    res.status(code).send({token, message: 'Sesión iniciada'});
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    res.status(code).send({ message: error.message });
   }
 }
 

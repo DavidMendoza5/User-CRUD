@@ -78,6 +78,8 @@ const logInUserService = async (schema, data) => {
   try {
     const username = { username: data.username }
     const response = await repository.getOne(schema, username);
+    if(!response) throw new Error('Error en las credenciales');
+
 
     const valid = await validateCredentials(data.password, response.password);
     if(!valid) throw new Error('Error en las credenciales');
@@ -86,7 +88,7 @@ const logInUserService = async (schema, data) => {
     
     return token;
   } catch (error) {
-    throw new Error(error.message);
+    return { error: error.message, code: 401 };
   }
 }
 
