@@ -84,7 +84,12 @@ const logInUserService = async (schema, data) => {
     const valid = await validateCredentials(data.password, response.password);
     if(!valid) throw new Error('Error en las credenciales');
 
-    const token = generateToken(response);
+    const dataToSign = {
+      id: response.id,
+      username: response.username,
+    }
+
+    const token = generateToken(dataToSign);
     
     return token;
   } catch (error) {
