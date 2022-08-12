@@ -6,10 +6,11 @@ const create = Joi.object({
     'string.empty': 'El nombre no debe ser un texto vacío',
     'any.required': 'El nombre es un campo requerido',
   }),
-  username: Joi.string().trim().required().messages({
-    'string.base': 'El username debe ser un texto',
-    'string.empty': 'El username no debe ser un texto vacío',
-    'any.required': 'El username es un campo requerido',
+  email: Joi.string().trim().email().required().messages({
+    'string.base': 'El correo electrónico debe ser un texto',
+    'string.empty': 'El correo electrónico no debe ser un texto vacío',
+    'string.email': 'La correo electrónico tiene un formato inválido',
+    'any.required': 'El correo electrónico es un campo requerido',
   }),
   password: Joi.string().trim().required().messages({
     'string.base': 'La contraseña debe ser un texto',
@@ -18,19 +19,6 @@ const create = Joi.object({
   }),
 });
 
-const getById = Joi.object({
-  id: Joi.string()
-  .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
-  .required()
-  .messages({
-    'string.base': 'El identificador debe ser un texto',
-    'string.empty': 'El identificador no debe ser un texto vacío',
-    'string.pattern.base': 'El identificador es inválido',
-    'any.required': 'El identificador es un campo requerido',
-  }),
-});
-
 module.exports = {
   create,
-  getById,
 }

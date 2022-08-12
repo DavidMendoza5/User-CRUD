@@ -18,9 +18,9 @@ const getOne = async (schema, filter) => {
   }
 }
 
-const get = async (schema) => {
+const get = async (schema, filters = {}) => {
   try {
-    const data = await dataSource.getRepository(schema).find();
+    const data = await dataSource.getRepository(schema).find(filters);
     return data;
   } catch (error) {
     throw new Error('Error al buscar en la base de datos');
