@@ -76,10 +76,20 @@ const updateClientService = async (id, data) => {
   }
 }
 
+const deleteClientService = async (id) => {
+  try {
+    await repository.deleteData(Client, id);
+
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 
 module.exports = {
   createClientService,
   getClientsService,
   getClientByIdService,
   updateClientService,
+  deleteClientService,
 }

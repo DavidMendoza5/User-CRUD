@@ -57,9 +57,22 @@ const updateClient = async (req, res) => {
   }
 }
 
+const deleteClient = async (req, res) => {
+  try {
+    const clientId = req.params;
+
+    await clientService.deleteClientService(clientId);
+
+    res.status(204).send({ message: 'Cliente eliminado' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
 module.exports = {
   createClient,
   getClients,
   getClientById,
   updateClient,
+  deleteClient,
 }

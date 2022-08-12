@@ -12,5 +12,6 @@ api.post('/clients', [middleware.verifyToken, middleware.validateData(clientVali
 api.get('/clients', [middleware.verifyToken], clientController.getClients);
 api.get('/clients/:id', [middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Client,'params', 'id')], clientController.getClientById);
 api.put('/clients/:id', [middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Client,'params', 'id'), middleware.validateId(User,'body', 'agentId')], clientController.updateClient);
+api.delete('/clients/:id', [middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Client,'params', 'id')], clientController.deleteClient);
 
 module.exports = api;
