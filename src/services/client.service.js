@@ -19,6 +19,30 @@ const createClientService = async (data) => {
   }
 }
 
+const getClientByIdService = async (id) => {
+  try {
+    const filters = {
+      where: id,
+      relations: ['agentId']
+    }
+
+    const response = await repository.get(Client, filters);
+    const filteredResponse = response[0];
+    
+    const data = {
+      id: filteredResponse.id,
+      email: filteredResponse.email,
+      name: filteredResponse.name,
+      phone: filteredResponse.phone,
+      agent: filteredResponse.agentId.id,
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 const getClientsService = async () => {
   try {
     const response = await repository.get(Client, { relations: ['agentId'] });
@@ -45,4 +69,5 @@ const getClientsService = async () => {
 module.exports = {
   createClientService,
   getClientsService,
+  getClientByIdService,
 }

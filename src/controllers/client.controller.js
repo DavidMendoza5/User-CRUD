@@ -11,6 +11,23 @@ const createClient = async (req, res) => {
   }
 }
 
+const getClientById = async (req, res) => {
+  let code = 200;
+  try {
+    const clientId = req.params;
+    const client = await clientService.getClientByIdService(clientId);
+    
+    if(client.error) {
+      code = 404;
+      throw new Error(client.error);
+    }
+
+    res.status(code).send({ client, message: 'Cliente encontrado' });
+  } catch (error) {
+    res.status(code).send({ message: error.message });
+  }
+}
+
 const getClients = async (req, res) => {
   let code = 200;
   try {
@@ -30,4 +47,5 @@ const getClients = async (req, res) => {
 module.exports = {
   createClient,
   getClients,
+  getClientById,
 }
