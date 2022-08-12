@@ -1,10 +1,13 @@
 const repository = require('../repository/abstract.repository');
+const User = require('../schemas/user.schema');
 const validateCredentials = require('../utils/validate.credentials');
 const generateToken = require('../utils/jwt');
+const encryptPassword = require('../utils/encrypt');
 
-const createUserService = async (schema, data) => {
+const createUserService = async (data) => {
   try {
-    const response = await repository.createInDB(schema, data);
+    data.password = await encryptPassword(data.password);
+    const response = await repository.createInDB(User, data);
 
     const newUser = {
       id: response.id,
@@ -18,9 +21,9 @@ const createUserService = async (schema, data) => {
   }
 }
 
-const getUserByIdService = async (schema, id) => {
+const getUserByIdService = async (id) => {
   try {
-    const response = await repository.getOne(schema, id);
+    const response = await repository.getOne(User, id);
     
     const data = {
       id: response.id,
@@ -34,9 +37,9 @@ const getUserByIdService = async (schema, id) => {
   }
 }
 
-const getUsersService = async (schema) => {
+const getUsersService = async () => {
   try {
-    const response = await repository.get(schema);
+    const response = await repository.get(User);
 
     if(response.length === 0) return {error: 'No hay usuarios', code: 404}
     
@@ -55,9 +58,9 @@ const getUsersService = async (schema) => {
   }
 }
 
-const updateUserService = async (schema, id, data) => {
+const updateUserService = async (id, data) => {
   try {
-    const response = await repository.update(schema, id, data);
+    const response = await repository.update(User, id, data);
 
     return response;
   } catch (error) {
@@ -65,19 +68,19 @@ const updateUserService = async (schema, id, data) => {
   }
 }
 
-const deleteUserService = async (schema, id) => {
+const deleteUserService = async (id) => {
   try {
-    await repository.deleteData(schema, id);
+    await repository.deleteData(User, id);
 
   } catch (error) {
     throw new Error(error.message);
   }
 }
 
-const logInUserService = async (schema, data) => {
+const logInUserService = async (data) => {
   try {
     const username = { username: data.username }
-    const response = await repository.getOne(schema, username);
+    const response = await repository.getOne(User, username);
     if(!response) throw new Error('Error en las credenciales');
 
 
