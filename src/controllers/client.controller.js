@@ -44,8 +44,22 @@ const getClients = async (req, res) => {
   }
 }
 
+const updateClient = async (req, res) => {
+  try {
+    const clientId = req.params;
+    const client = req.body;
+
+    await clientService.updateClientService(clientId, client);
+
+    res.status(200).send({ client, message: 'Cliente actualizado' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
 module.exports = {
   createClient,
   getClients,
   getClientById,
+  updateClient,
 }

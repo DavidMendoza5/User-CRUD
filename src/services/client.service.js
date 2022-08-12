@@ -66,8 +66,20 @@ const getClientsService = async () => {
   }
 }
 
+const updateClientService = async (id, data) => {
+  try {
+    const response = await repository.update(Client, id, data);
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+
 module.exports = {
   createClientService,
   getClientsService,
   getClientByIdService,
+  updateClientService,
 }
