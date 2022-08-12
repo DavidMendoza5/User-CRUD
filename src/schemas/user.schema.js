@@ -1,7 +1,7 @@
 const { EntitySchema } = require('typeorm');
 
 module.exports = new EntitySchema({
-  name: 'User',
+  name: 'Agent',
   columns: {
     id: {
       type: 'uuid',
@@ -12,9 +12,6 @@ module.exports = new EntitySchema({
       type: String,
     },
     name: {
-      type: String,
-    },
-    username: {
       type: String,
     },
     password: {

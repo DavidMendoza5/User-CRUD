@@ -1,5 +1,5 @@
 const repository = require('../repository/abstract.repository');
-const User = require('../schemas/user.schema');
+const Agent = require('../schemas/user.schema');
 const validateCredentials = require('../utils/validate.credentials');
 const generateToken = require('../utils/jwt');
 const encryptPassword = require('../utils/encrypt');
@@ -7,7 +7,7 @@ const encryptPassword = require('../utils/encrypt');
 const createUserService = async (data) => {
   try {
     data.password = await encryptPassword(data.password);
-    const response = await repository.createInDB(User, data);
+    const response = await repository.createInDB(Agent, data);
 
     const newUser = {
       id: response.id,
@@ -23,7 +23,7 @@ const createUserService = async (data) => {
 
 const getUserByIdService = async (id) => {
   try {
-    const response = await repository.getOne(User, id);
+    const response = await repository.getOne(Agent, id);
     
     const data = {
       id: response.id,
@@ -39,7 +39,7 @@ const getUserByIdService = async (id) => {
 
 const getUsersService = async () => {
   try {
-    const response = await repository.get(User);
+    const response = await repository.get(Agent);
 
     if(response.length === 0) return {error: 'No hay usuarios', code: 404}
     
@@ -60,7 +60,7 @@ const getUsersService = async () => {
 
 const updateUserService = async (id, data) => {
   try {
-    const response = await repository.update(User, id, data);
+    const response = await repository.update(Agent, id, data);
 
     return response;
   } catch (error) {
@@ -70,7 +70,7 @@ const updateUserService = async (id, data) => {
 
 const deleteUserService = async (id) => {
   try {
-    await repository.deleteData(User, id);
+    await repository.deleteData(Agent, id);
 
   } catch (error) {
     throw new Error(error.message);
@@ -79,8 +79,8 @@ const deleteUserService = async (id) => {
 
 const logInUserService = async (data) => {
   try {
-    const username = { username: data.username }
-    const response = await repository.getOne(User, username);
+    const email = { email: data.email }
+    const response = await repository.getOne(Agent, email);
     if(!response) throw new Error('Error en las credenciales');
 
 
@@ -89,7 +89,7 @@ const logInUserService = async (data) => {
 
     const dataToSign = {
       id: response.id,
-      username: response.username,
+      email: response.email,
     }
 
     const token = generateToken(dataToSign);

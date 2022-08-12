@@ -29,7 +29,7 @@ module.exports = new EntitySchema({
   relations: {
     agentId: {
       type: 'many-to-one',
-      target: 'User',
+      target: 'Agent',
       cascade: false,
       joinColumn: {
         name: 'agentId',

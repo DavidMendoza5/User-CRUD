@@ -6,11 +6,6 @@ const create = Joi.object({
     'string.empty': 'El nombre no debe ser un texto vacío',
     'any.required': 'El nombre es un campo requerido',
   }),
-  username: Joi.string().trim().required().messages({
-    'string.base': 'El username debe ser un texto',
-    'string.empty': 'El username no debe ser un texto vacío',
-    'any.required': 'El username es un campo requerido',
-  }),
   email: Joi.string().trim().email().required().messages({
     'string.base': 'El correo electrónico debe ser un texto',
     'string.empty': 'El correo electrónico no debe ser un texto vacío',
