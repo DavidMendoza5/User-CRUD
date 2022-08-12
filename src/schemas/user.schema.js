@@ -1,4 +1,4 @@
-const { EntitySchema } = require('typeorm')
+const { EntitySchema } = require('typeorm');
 
 module.exports = new EntitySchema({
   name: 'User',
@@ -7,6 +7,9 @@ module.exports = new EntitySchema({
       type: 'uuid',
       primary: true,
       generated: 'uuid',
+    },
+    email: {
+      type: String,
     },
     name: {
       type: String,
@@ -17,5 +20,13 @@ module.exports = new EntitySchema({
     password: {
       type: String,
     },
+    createdAt: {
+      type: 'timestamp with time zone',
+      createDate: true,
+    },
+    updatedAt: {
+      type: 'timestamp with time zone',
+      updateDate: true,
+    },
   },
-})
+});
