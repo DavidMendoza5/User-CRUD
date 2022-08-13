@@ -3,6 +3,8 @@ const clientService = require('../services/client.service');
 const createClient = async (req, res) => {
   try {
     const client = req.body;
+    const user = req.user.id;
+    client.agentId = user;
 
     const newClient = await clientService.createClientService(client);
     res.status(201).send({ newClient, message: 'Cliente creado' });
