@@ -11,10 +11,10 @@ const verifyToken = (req, res, next) => {
       }
 
       const verified = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
-      req.user = verified
-      next()
+      req.user = verified;
+      next();
     } catch (error) {
-      res.status(code).json({error: 'El token expiró o no es válido'})
+      res.status(code).json({ error: 'El token expiró o no es válido' });
     }
 }
 
