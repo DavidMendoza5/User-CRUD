@@ -11,14 +11,20 @@ const createInsurancePolicyService = async (data) => {
   }
 }
 
-const getInsurancePolicyByIdService = async (id) => {
+const getInsurancePolicyByIdService = async (id, user) => {
   try {
+    const whereParams = {
+      'id': id.id,
+      'agentId.id': user,
+    }
+
     const filters = {
-      where: id,
+      where: whereParams,
       relations: ['agentId', 'clientId']
     }
 
     const response = await repository.get(InsurancePolicy, filters);
+    if(response.length === 0) throw new Error('No existe la póliza');
     const filteredResponse = response[0];
     
     const data = {

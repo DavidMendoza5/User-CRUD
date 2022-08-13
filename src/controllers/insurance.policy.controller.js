@@ -15,7 +15,8 @@ const getClientById = async (req, res) => {
   let code = 200;
   try {
     const insuranceId = req.params;
-    const insurancePolicy = await insurancePolicyService.getInsurancePolicyByIdService(insuranceId);
+    const user = req.user.id;
+    const insurancePolicy = await insurancePolicyService.getInsurancePolicyByIdService(insuranceId, user);
     
     if(insurancePolicy.error) {
       code = 404;
