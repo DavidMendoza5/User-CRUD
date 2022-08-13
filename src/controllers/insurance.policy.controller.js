@@ -46,8 +46,22 @@ const getcreateInsurancePolicies = async (req, res) => {
   }
 }
 
+const updateInsurancePolicy = async (req, res) => {
+  try {
+    const insuranceId = req.params;
+    const insurancePolicy = req.body;
+
+    await insurancePolicyService.updateInsurancePolicyService(insuranceId, insurancePolicy);
+
+    res.status(200).send({ insurancePolicy, message: 'Póliza de seguro actualizada' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
 module.exports = {
   createInsurancePolicy,
   getcreateInsurancePolicyById,
   getcreateInsurancePolicies,
+  updateInsurancePolicy,
 }

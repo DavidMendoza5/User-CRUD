@@ -79,8 +79,19 @@ const getInsurancePoliciesService = async (user) => {
   }
 }
 
+const updateInsurancePolicyService = async (id, data) => {
+  try {
+    const response = await repository.update(InsurancePolicy, id, data);
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createInsurancePolicyService,
   getInsurancePolicyByIdService,
   getInsurancePoliciesService,
+  updateInsurancePolicyService,
 }
