@@ -15,7 +15,8 @@ const getClientById = async (req, res) => {
   let code = 200;
   try {
     const clientId = req.params;
-    const client = await clientService.getClientByIdService(clientId);
+    const user = req.user.id;
+    const client = await clientService.getClientByIdService(clientId, user);
     
     if(client.error) {
       code = 404;
@@ -31,7 +32,8 @@ const getClientById = async (req, res) => {
 const getClients = async (req, res) => {
   let code = 200;
   try {
-    const clients = await clientService.getClientsService();
+    const user = req.user.id;
+    const clients = await clientService.getClientsService(user);
     
     if(clients.length === 0) {
       code = 404;

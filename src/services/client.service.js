@@ -19,14 +19,20 @@ const createClientService = async (data) => {
   }
 }
 
-const getClientByIdService = async (id) => {
+const getClientByIdService = async (id, user) => {
   try {
+    const whereParams = {
+      'id': id.id,
+      'agentId.id': user,
+    }
+
     const filters = {
-      where: id,
+      where: whereParams,
       relations: ['agentId']
     }
 
     const response = await repository.get(Client, filters);
+    if(response.length === 0) throw new Error('No existe la póliza');
     const filteredResponse = response[0];
     
     const data = {
@@ -43,9 +49,18 @@ const getClientByIdService = async (id) => {
   }
 }
 
-const getClientsService = async () => {
+const getClientsService = async (user) => {
   try {
-    const response = await repository.get(Client, { relations: ['agentId'] });
+    const whereParams = {
+      'agentId.id': user,
+    }
+
+    const filters = {
+      where: whereParams,
+      relations: ['agentId']
+    }
+
+    const response = await repository.get(Client, filters);
 
     if(response.length === 0) return { error: 'No hay clientes', code: 404 };
     
