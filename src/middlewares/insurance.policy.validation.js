@@ -60,15 +60,6 @@ const create = Joi.object({
       'any.only': `El estatus de la póliza solo puede tomar alguno de los valores: ${PolicyType.join(', ',)}`,
       'any.required': 'El estatus de la póliza es un campo requerido',
   }),
-  agentId: Joi.string()
-    .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
-    .required()
-    .messages({
-      'string.base': 'El identificador del agente debe ser un texto',
-      'string.empty': 'El identificador del agente no debe ser un texto vacío',
-      'string.pattern.base': 'El identificador del agente es inválido',
-      'any.required': 'El identificador del agente es un campo requerido',
-    }),
   clientId: Joi.string()
     .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
     .required()
@@ -121,14 +112,6 @@ const update = Joi.object({
       'string.empty': 'El estatus de la póliza no debe ser un texto vacío',
       'any.only': `El estatus de la póliza solo puede tomar alguno de los valores: ${PolicyType.join(', ',)}`,
   }),
-  agentId: Joi.string()
-    .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
-    .optional()
-    .messages({
-      'string.base': 'El identificador del agente debe ser un texto',
-      'string.empty': 'El identificador del agente no debe ser un texto vacío',
-      'string.pattern.base': 'El identificador del agente es inválido',
-    }),
   clientId: Joi.string()
     .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
     .optional()
