@@ -3,8 +3,10 @@ const insurancePolicyService = require('../services/insurance.policy.service');
 const createInsurancePolicy = async (req, res) => {
   try {
     const insurancePolicy = req.body;
+    const user = req.user.id;
+    insurancePolicy.agentId = user;
 
-    const newInsurancePolicy = await insurancePolicyService.createInsurancePolicyService(insurancePolicy);
+    const newInsurancePolicy = await insurancePolicyService.createInsurancePolicyService(insurancePolicy, user);
     res.status(201).send({ newInsurancePolicy, message: 'Póliza de seguro creada' });
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -59,9 +61,22 @@ const updateInsurancePolicy = async (req, res) => {
   }
 }
 
+const deleteInsurancePolicy = async (req, res) => {
+  try {
+    const insuranceId = req.params;
+
+    await insurancePolicyService.deleteInsurancePolicyService(insuranceId);
+
+    res.status(204).send({ message: 'Póliza eliminada' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
 module.exports = {
   createInsurancePolicy,
   getcreateInsurancePolicyById,
   getcreateInsurancePolicies,
   updateInsurancePolicy,
+  deleteInsurancePolicy,
 }

@@ -89,9 +89,19 @@ const updateInsurancePolicyService = async (id, data) => {
   }
 }
 
+const deleteInsurancePolicyService = async (id) => {
+  try {
+    await repository.deleteData(InsurancePolicy, id);
+
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createInsurancePolicyService,
   getInsurancePolicyByIdService,
   getInsurancePoliciesService,
   updateInsurancePolicyService,
+  deleteInsurancePolicyService,
 }

@@ -10,7 +10,7 @@ const Agent = require('../schemas/user.schema');
 const api = Router();
 
 api.post('/insurance-policies', [
-    middleware.verifyToken, middleware.validateData(insurancePolicyValidation.create, 'body'), middleware.validateId(Agent,'body', 'agentId'), 
+    middleware.verifyToken, middleware.validateData(insurancePolicyValidation.create, 'body'),
     middleware.validateId(Client,'body', 'clientId')
   ], 
   insurancePolicyController.createInsurancePolicy
@@ -27,5 +27,11 @@ api.put('/insurance-policies/:id', [
   ], 
   insurancePolicyController.updateInsurancePolicy
 );
+
+api.delete('/insurance-policies/:id', [
+    middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(InsurancePolicy,'params', 'id'),
+    middleware.verifyPermissions(InsurancePolicy)
+  ],
+  insurancePolicyController.deleteInsurancePolicy);
 
 module.exports = api;
