@@ -47,7 +47,7 @@ const getClientsService = async () => {
   try {
     const response = await repository.get(Client, { relations: ['agentId'] });
 
-    if(response.length === 0) return {error: 'No hay clientes', code: 404}
+    if(response.length === 0) return { error: 'No hay clientes', code: 404 };
     
     const data = response.map((element) => {
       const newData = {

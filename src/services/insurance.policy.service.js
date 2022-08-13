@@ -44,7 +44,43 @@ const getInsurancePolicyByIdService = async (id, user) => {
   }
 }
 
+const getInsurancePoliciesService = async (user) => {
+  try {
+    const whereParams = {
+      'agentId.id': user,
+    }
+
+    const filters = {
+      where: whereParams,
+      relations: ['agentId', 'clientId']
+    }
+
+    const response = await repository.get(InsurancePolicy, filters);
+
+    if(response.length === 0) return { error: 'No hay pólizas de seguro', code: 404 };
+    
+    const data = response.map((element) => {
+      const newData = {
+        id: element.id,
+        startDate: element.startDate,
+        endingDate: element.endingDate,
+        insuranceCarrier: element.insuranceCarrier,
+        policyType: element.policyType,
+        status: element.status,
+        agent: element.agentId.id,
+        client: element.clientId.id,
+      }
+        return newData;
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createInsurancePolicyService,
   getInsurancePolicyByIdService,
+  getInsurancePoliciesService,
 }

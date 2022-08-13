@@ -10,6 +10,7 @@ const Agent = require('../schemas/user.schema');
 const api = Router();
 
 api.post('/insurance-policies', [middleware.verifyToken, middleware.validateData(insurancePolicyValidation.create, 'body'), middleware.validateId(Agent,'body', 'agentId'), middleware.validateId(Client,'body', 'clientId')], insurancePolicyController.createInsurancePolicy);
-api.get('/insurance-policies/:id', [middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(InsurancePolicy,'params', 'id')], insurancePolicyController.getClientById);
+api.get('/insurance-policies/:id', [middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(InsurancePolicy,'params', 'id')], insurancePolicyController.getcreateInsurancePolicyById);
+api.get('/insurance-policies', [middleware.verifyToken], insurancePolicyController.getcreateInsurancePolicies);
 
 module.exports = api;

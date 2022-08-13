@@ -11,7 +11,7 @@ const createInsurancePolicy = async (req, res) => {
   }
 }
 
-const getClientById = async (req, res) => {
+const getcreateInsurancePolicyById = async (req, res) => {
   let code = 200;
   try {
     const insuranceId = req.params;
@@ -29,7 +29,25 @@ const getClientById = async (req, res) => {
   }
 }
 
+const getcreateInsurancePolicies = async (req, res) => {
+  let code = 200;
+  try {
+    const user = req.user.id;
+    const insurancePolicies = await insurancePolicyService.getInsurancePoliciesService(user);
+    
+    if(insurancePolicies.length === 0) {
+      code = 404;
+      throw new Error(insurancePolicies.error);
+    }
+
+    res.status(code).send({ insurancePolicies, message: 'Pólizas de seguro encontradas' });
+  } catch (error) {
+    res.status(code).send({ message: error.message });
+  }
+}
+
 module.exports = {
   createInsurancePolicy,
-  getClientById,
+  getcreateInsurancePolicyById,
+  getcreateInsurancePolicies,
 }
