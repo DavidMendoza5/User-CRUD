@@ -11,6 +11,34 @@ const createInsurancePolicyService = async (data) => {
   }
 }
 
+const getInsurancePolicyByIdService = async (id) => {
+  try {
+    const filters = {
+      where: id,
+      relations: ['agentId', 'clientId']
+    }
+
+    const response = await repository.get(InsurancePolicy, filters);
+    const filteredResponse = response[0];
+    
+    const data = {
+      id: filteredResponse.id,
+      startDate: filteredResponse.startDate,
+      endingDate: filteredResponse.endingDate,
+      insuranceCarrier: filteredResponse.insuranceCarrier,
+      policyType: filteredResponse.policyType,
+      status: filteredResponse.status,
+      agent: filteredResponse.agentId.id,
+      client: filteredResponse.clientId.id,
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createInsurancePolicyService,
+  getInsurancePolicyByIdService,
 }
