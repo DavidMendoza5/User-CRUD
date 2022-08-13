@@ -1,5 +1,6 @@
 const repository = require('../repository/abstract.repository');
 const InsurancePolicy = require('../schemas/insurance.policy.schema');
+const { LessThan } = require('typeorm')
 
 const createInsurancePolicyService = async (data) => {
   try {
@@ -44,10 +45,16 @@ const getInsurancePolicyByIdService = async (id, user) => {
   }
 }
 
-const getInsurancePoliciesService = async (user) => {
+const getInsurancePoliciesService = async (user, query = {}) => {
   try {
     const whereParams = {
       'agentId.id': user,
+    }
+    
+    if(query.policyType !== undefined) whereParams['policyType'] = query.policyType;
+    if(query.status !== undefined) whereParams['status'] = query.status;
+    if(query.endingDate !== undefined) {
+      whereParams['endingDate'] = LessThan(`${query.endingDate}`);
     }
 
     const filters = {

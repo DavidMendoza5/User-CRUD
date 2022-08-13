@@ -34,8 +34,9 @@ const getcreateInsurancePolicyById = async (req, res) => {
 const getcreateInsurancePolicies = async (req, res) => {
   let code = 200;
   try {
+    const query = req.query;
     const user = req.user.id;
-    const insurancePolicies = await insurancePolicyService.getInsurancePoliciesService(user);
+    const insurancePolicies = await insurancePolicyService.getInsurancePoliciesService(user, query);
     
     if(insurancePolicies.length === 0) {
       code = 404;
