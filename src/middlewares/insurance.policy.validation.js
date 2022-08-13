@@ -80,6 +80,66 @@ const create = Joi.object({
     }),
 });
 
+const update = Joi.object({
+  startDate: Joi.string()
+    .regex(/^[0-9]{4}\b-([0][1-9]|1[0-2])\b-([0][1-9]|1[0-9]|2[0-9]|3[0-1])\b$/i)  
+    .optional()
+    .messages({
+      'string.empty': 'La fecha de inicio no debe ser un texto vacío',
+      'string.pattern.base': 'La fecha de inicio es inválida',
+  }),
+  endingDate: Joi.string()
+    .regex(/^[0-9]{4}\b-([0][1-9]|1[0-2])\b-([0][1-9]|1[0-9]|2[0-9]|3[0-1])\b$/i)    
+    .optional()
+    .messages({
+      'string.empty': 'La fecha de fin no debe ser un texto vacío',
+      'string.pattern.base': 'La fecha de fin es inválida',
+  }),
+  insuranceCarrier: Joi.string().trim().optional().messages({
+    'string.base': 'El nombre de la aseguradora debe ser un texto',
+    'string.empty': 'El nombre de la aseguradora no debe ser un texto vacío',
+  }),
+  policyType: Joi.string()
+    .trim()
+    .valid(...PolicyType)
+    .optional()
+    .messages({
+      'string.base': 'El tipo de póliza debe ser un texto',
+      'string.empty': 'El tipo de póliza no debe ser un texto vacío',
+      'any.only': `El tipo de póliza solo puede tomar alguno de los valores: ${PolicyType.join(', ',)}`,
+  }),
+  price: Joi.number().less(maxPrice).optional().messages({
+    'number.base': 'El precio debe ser un número',
+    'number.less': `El precio debe ser un número menor a ${maxPrice}`,
+  }),
+  status: Joi.string()
+    .trim()
+    .valid(...Status)
+    .optional()
+    .messages({
+      'string.base': 'El estatus de la póliza debe ser un texto',
+      'string.empty': 'El estatus de la póliza no debe ser un texto vacío',
+      'any.only': `El estatus de la póliza solo puede tomar alguno de los valores: ${PolicyType.join(', ',)}`,
+  }),
+  agentId: Joi.string()
+    .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
+    .optional()
+    .messages({
+      'string.base': 'El identificador del agente debe ser un texto',
+      'string.empty': 'El identificador del agente no debe ser un texto vacío',
+      'string.pattern.base': 'El identificador del agente es inválido',
+    }),
+  clientId: Joi.string()
+    .regex(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/i)
+    .optional()
+    .messages({
+      'string.base': 'El identificador del cliente debe ser un texto',
+      'string.empty': 'El identificador del cliente no debe ser un texto vacío',
+      'string.pattern.base': 'El identificador del cliente es inválido',
+    }),
+});
+
 module.exports = {
   create,
+  update,
 }

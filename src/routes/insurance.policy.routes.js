@@ -22,7 +22,8 @@ api.get('/insurance-policies/:id', [
 api.get('/insurance-policies', [middleware.verifyToken], insurancePolicyController.getcreateInsurancePolicies);
 api.put('/insurance-policies/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(InsurancePolicy,'params', 'id'), 
-    middleware.verifyPermissions(InsurancePolicy), middleware.validateId(Agent,'body', 'agentId'), middleware.validateId(Client,'body', 'clientId')
+    middleware.verifyPermissions(InsurancePolicy), middleware.validateData(insurancePolicyValidation.update, 'body'),
+    middleware.validateId(Agent,'body', 'agentId'), middleware.validateId(Client,'body', 'clientId')
   ], 
   insurancePolicyController.updateInsurancePolicy
 );
