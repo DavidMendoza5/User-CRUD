@@ -41,7 +41,7 @@ const getUsersService = async () => {
   try {
     const response = await repository.get(Agent);
 
-    if(response.length === 0) return {error: 'No hay usuarios', code: 404}
+    if(response.length === 0) return { error: 'No hay usuarios', code: 404 };
     
     const data = response.map((element) => {
       const newData = {

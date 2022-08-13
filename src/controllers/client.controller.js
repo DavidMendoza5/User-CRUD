@@ -38,7 +38,7 @@ const getClients = async (req, res) => {
       throw new Error(clients.error);
     }
 
-    res.status(code).send({clients, message: 'Clientes encontrados'});
+    res.status(code).send({ clients, message: 'Clientes encontrados' });
   } catch (error) {
     res.status(code).send({ message: error.message });
   }
