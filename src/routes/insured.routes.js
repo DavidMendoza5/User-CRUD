@@ -15,7 +15,9 @@ api.post('/insured', [
 );
 api.get('/insured/:id', [
   middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Insured,'params', 'id')
-], insuredController.getInsuredById
+  ],
+  insuredController.getInsuredById
 );
+api.get('/insured', [middleware.verifyToken], insuredController.getInsured);
 
 module.exports = api;

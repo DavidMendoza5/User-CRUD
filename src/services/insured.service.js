@@ -40,7 +40,36 @@ const getInsuredByIdService = async (id) => {
   }
 }
 
+const getInsuredService = async () => {
+  try {
+
+    const filters = {
+      relations: ['insurancePolicyId']
+    }
+
+    const response = await repository.get(Insured, filters);
+
+    if(response.length === 0) return { error: 'No hay asegurados', code: 404 };
+    
+    const data = response.map((element) => {
+      const newData = {
+        id: element.id,
+        name: element.name,
+        age: element.age,
+        insurancePolicy: element.insurancePolicyId.id,
+        policyType: element.insurancePolicyId.policyType,
+      }
+      return newData;
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createInsuredService,
   getInsuredByIdService,
+  getInsuredService,
 };
