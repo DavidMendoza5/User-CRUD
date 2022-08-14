@@ -10,21 +10,25 @@ const api = Router();
 api.post('/clients', [
     middleware.verifyToken, middleware.validateData(clientValidation.create, 'body')
   ],
-  clientController.createClient);
+  clientController.createClient
+);
 api.get('/clients', [middleware.verifyToken], clientController.getClients);
 api.get('/clients/:id', [
   middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Client,'params', 'id')
   ],
-  clientController.getClientById);
+  clientController.getClientById
+);
 api.put('/clients/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Client,'params', 'id'),
     middleware.verifyPermissions(Client), middleware.validateData(clientValidation.update, 'body')
   ],
-  clientController.updateClient);
+  clientController.updateClient
+);
 api.delete('/clients/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Client,'params', 'id'),
     middleware.verifyPermissions(Client)
   ],
-  clientController.deleteClient);
+  clientController.deleteClient
+);
 
 module.exports = api;

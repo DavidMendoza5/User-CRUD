@@ -12,16 +12,19 @@ api.get('/users', [middleware.verifyToken], userController.getUsers);
 api.get('/users/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Agent,'params', 'id')
   ],
-  userController.getUserById);
+  userController.getUserById
+);
 api.post('/users',  [middleware.verifyToken, middleware.validateData(userValidation.create, 'body')], userController.createUser);
 api.put('/users/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Agent,'params', 'id'),
     middleware.validateData(userValidation.update, 'body')
   ],
-  userController.updateUser);
+  userController.updateUser
+);
 api.delete('/users/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Agent,'params', 'id')
   ],
-  userController.deleteUser);
+  userController.deleteUser
+);
 
 module.exports = api;

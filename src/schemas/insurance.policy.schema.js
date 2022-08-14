@@ -1,9 +1,9 @@
 const { EntitySchema } = require('typeorm');
 
 const PolicyType = [
-  'GASTOSMEDICOSMAYORES',
+  'GASTOS_MEDICOS_MAYORES',
   'AUTO',
-  'SEGURODEVIDA',
+  'SEGURO_DE_VIDA',
 ]
 
 const Status = [
