@@ -19,5 +19,11 @@ api.get('/insured/:id', [
   insuredController.getInsuredById
 );
 api.get('/insured', [middleware.verifyToken], insuredController.getInsured);
+api.put('/insured/:id', [
+  middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Insured,'params', 'id'),
+  middleware.validateData(insuredValidation.update, 'body')
+  ],
+  insuredController.updateInsured
+);
 
 module.exports = api;

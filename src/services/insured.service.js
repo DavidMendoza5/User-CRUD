@@ -68,8 +68,19 @@ const getInsuredService = async () => {
   }
 }
 
+const updateInsuredService = async (id, data) => {
+  try {
+    const response = await repository.update(Insured, id, data);
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 module.exports = {
   createInsuredService,
   getInsuredByIdService,
   getInsuredService,
+  updateInsuredService,
 };

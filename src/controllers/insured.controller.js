@@ -44,8 +44,23 @@ const getInsured = async (req, res) => {
   }
 }
 
+const updateInsured = async (req, res) => {
+  try {
+    const insuredId = req.params;
+    const insured = req.body;
+
+    await insuredService.updateInsuredService(insuredId, insured);
+
+    res.status(200).send({ insured, message: 'La información del asegurado fue actualizada' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
+
 module.exports = {
   createInsured,
   getInsuredById,
   getInsured,
+  updateInsured,
 }
