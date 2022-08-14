@@ -25,5 +25,10 @@ api.put('/insured/:id', [
   ],
   insuredController.updateInsured
 );
+api.delete('/insured/:id', [
+  middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Insured,'params', 'id')
+],
+insuredController.deleteInsured
+);
 
 module.exports = api;

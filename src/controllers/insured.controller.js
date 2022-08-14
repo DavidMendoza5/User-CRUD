@@ -57,10 +57,23 @@ const updateInsured = async (req, res) => {
   }
 }
 
+const deleteInsured = async (req, res) => {
+  try {
+    const insuredId = req.params;
+
+    await insuredService.deleteInsuredService(insuredId);
+
+    res.status(204).send({ message: 'Asegurado eliminado' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+}
+
 
 module.exports = {
   createInsured,
   getInsuredById,
   getInsured,
   updateInsured,
+  deleteInsured,
 }
