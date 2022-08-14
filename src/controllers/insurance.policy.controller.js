@@ -13,7 +13,7 @@ const createInsurancePolicy = async (req, res) => {
   }
 }
 
-const getcreateInsurancePolicyById = async (req, res) => {
+const getcInsurancePolicyById = async (req, res) => {
   let code = 200;
   try {
     const insuranceId = req.params;
@@ -31,7 +31,7 @@ const getcreateInsurancePolicyById = async (req, res) => {
   }
 }
 
-const getcreateInsurancePolicies = async (req, res) => {
+const getInsurancePolicies = async (req, res) => {
   let code = 200;
   try {
     const query = req.query;
@@ -76,8 +76,8 @@ const deleteInsurancePolicy = async (req, res) => {
 
 module.exports = {
   createInsurancePolicy,
-  getcreateInsurancePolicyById,
-  getcreateInsurancePolicies,
+  getcInsurancePolicyById,
+  getInsurancePolicies,
   updateInsurancePolicy,
   deleteInsurancePolicy,
 }

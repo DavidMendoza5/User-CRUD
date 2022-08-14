@@ -25,7 +25,7 @@ const getInsurancePolicyByIdService = async (id, user) => {
     }
 
     const response = await repository.get(InsurancePolicy, filters);
-    if(response.length === 0) throw new Error('No existe la póliza');
+    if(response.length === 0) return { error: 'No existe la póliza', code: 404 };
     const filteredResponse = response[0];
     
     const data = {

@@ -11,6 +11,24 @@ const createInsured = async (req, res) => {
   }
 }
 
+const getInsuredById = async (req, res) => {
+  let code = 200;
+  try {
+    const insuredId = req.params;
+    const insured = await insuredService.getInsuredByIdService(insuredId);
+    
+    if(insured.error) {
+      code = 404;
+      throw new Error(insured.error);
+    }
+
+    res.status(code).send({ insured, message: 'Asegurado encontrado' });
+  } catch (error) {
+    res.status(code).send({ message: error.message });
+  }
+}
+
 module.exports = {
   createInsured,
+  getInsuredById,
 }
