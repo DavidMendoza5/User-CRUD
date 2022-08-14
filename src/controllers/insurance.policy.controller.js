@@ -6,7 +6,7 @@ const createInsurancePolicy = async (req, res) => {
     const user = req.user.id;
     insurancePolicy.agentId = user;
 
-    const newInsurancePolicy = await insurancePolicyService.createInsurancePolicyService(insurancePolicy, user);
+    const newInsurancePolicy = await insurancePolicyService.createInsurancePolicyService(insurancePolicy);
     res.status(201).send({ newInsurancePolicy, message: 'Póliza de seguro creada' });
   } catch (error) {
     res.status(500).send({ message: error.message });
