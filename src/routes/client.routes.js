@@ -8,7 +8,7 @@ const Client = require('../schemas/client.schema');
 const api = Router();
 
 api.post('/clients', [
-    middleware.verifyToken, middleware.validateData(clientValidation.create, 'body')
+    middleware.verifyToken, middleware.validateData(clientValidation.create, 'body'), middleware.validateEmail(Client, 'body', 'email')
   ],
   clientController.createClient
 );

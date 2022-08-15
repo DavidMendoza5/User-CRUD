@@ -14,7 +14,11 @@ api.get('/users/:id', [
   ],
   userController.getUserById
 );
-api.post('/users',  [middleware.verifyToken, middleware.validateData(userValidation.create, 'body')], userController.createUser);
+api.post('/users',  [
+    middleware.verifyToken, middleware.validateData(userValidation.create, 'body'), middleware.validateEmail(Agent, 'body', 'email')
+  ],
+  userController.createUser
+);
 api.put('/users/:id', [
     middleware.verifyToken, middleware.validateData(getById, 'params'), middleware.validateId(Agent,'params', 'id'),
     middleware.validateData(userValidation.update, 'body')
