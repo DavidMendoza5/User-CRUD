@@ -1,10 +1,14 @@
 # Nativo Digital test
 
 ## Data base model
+![Captura de pantalla de 2022-08-16 10-11-19](https://user-images.githubusercontent.com/42629297/184926093-08da863c-da4e-4d56-a89d-46847f5953f8.png)
 
 ## Schemas
 - pk: Primary key
 - fk: Foreign key
+- Policy types: GASTOS_MEDICOS_MAYORES, AUTO, SEGURO_DE_VIDA
+- Policy status: VENCIDA, VIGENTE
+
 ### Agent
 Field | Value Type | Required | Default |
 -- | -- | -- | -- |
