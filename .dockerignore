@@ -1,0 +1,11 @@
+# NODE
+node_modules
+
+# Docker
+dockerfile
+docker-compose.yml
+.dockerignore
+
+# Others
+.env.example
+.gitignore

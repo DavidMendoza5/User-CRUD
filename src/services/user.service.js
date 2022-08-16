@@ -83,7 +83,6 @@ const logInUserService = async (data) => {
     const response = await repository.getOne(Agent, email);
     if(!response) throw new Error('Error en las credenciales');
 
-
     const valid = await validateCredentials(data.password, response.password);
     if(!valid) throw new Error('Error en las credenciales');
 
