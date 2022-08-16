@@ -1,21 +1,18 @@
 const { EntitySchema } = require('typeorm');
 
 module.exports = new EntitySchema({
-  name: 'Agent',
+  name: 'Insured',
   columns: {
     id: {
       type: 'uuid',
       primary: true,
       generated: 'uuid',
     },
-    email: {
-      type: String,
-    },
     name: {
       type: String,
     },
-    password: {
-      type: String,
+    age: {
+      type: Number,
     },
     createdAt: {
       type: 'timestamp with time zone',
@@ -24,6 +21,17 @@ module.exports = new EntitySchema({
     updatedAt: {
       type: 'timestamp with time zone',
       updateDate: true,
+    },
+  },
+  relations: {
+    insurancePolicyId: {
+      type: 'many-to-one',
+      target: 'InsurancePolicy',
+      cascade: false,
+      joinColumn: {
+        name: 'insurancePolicyId',
+        referencedColumnName: 'id',
+      },
     },
   },
 });
