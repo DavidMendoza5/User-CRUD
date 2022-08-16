@@ -87,6 +87,7 @@ CREATE DATABASE data_base_name;
 
 
 ## Running the project
+At first it'll be created an agent with the following data: email = admin@gmail.com, password = 12345
 - Development: ```npm run dev```
 - Production: ```npm start```
 - Test: ```npm test```
