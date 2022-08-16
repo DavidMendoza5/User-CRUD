@@ -72,7 +72,7 @@ DATABASE_PASSWORD=password
 JWT_SECRET=secret
 JWT_ACCESS_TOKEN_EXP=1h
 ```
-- Create the data base using the terminal or a client.
+- Create the data base using the terminal or a client (TypeORM creates the tables but you must create the data base).
 - Create your docker container for the data base(optional)
 ```
 Creating the container:
