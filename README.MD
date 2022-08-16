@@ -80,6 +80,9 @@ docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -p 5434:5432 postgre
 
 Running postgres container in terminal:
 docker exec -it container psql -U postgres
+
+Creating a data base:
+CREATE DATABASE data_base_name;
 ```
 
 
