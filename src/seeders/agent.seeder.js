@@ -7,7 +7,9 @@ async function createAgentSeed() {
       "email": "admin@gmail.com",
       "password": "12345"
     } 
-    await agentService.createUserService(data);
+    const userFound = await agentService.getUserByEmailService({email: data.email});
+
+    if(Object.keys(userFound).length === 0) await agentService.createUserService(data);
   } catch (error) {
     console.log(error);
   }
