@@ -2,13 +2,13 @@ version: '3.3'
 
 services:
   api:
-    container_name: api-${DATABASE_NAME}
+    container_name: project_api
     restart: unless-stopped
     build: 
       dockerfile: ./dockerfile
       context: .
     volumes:
-      - .:/usr/src/app
+      - ./:/usr/src/app
     ports:
       - "${PORT}:${PORT}"
     command: npm run dev
@@ -18,11 +18,13 @@ services:
       - db
   db: 
     image: postgres:13.6-alpine
-    container_name: ${DATABASE_NAME}-postgres-${DATABASE_NAME}
+    container_name: project_db
     restart: unless-stopped
+    volumes:
+      - ./docker/postgres:/var/lib/postgresql
     ports:
       - "${DATABASE_PORT}:${DATABASE_PORT}"
     environment:
-      POSTGRES_DATABASE: ${DATABASE_NAME}
+      POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
