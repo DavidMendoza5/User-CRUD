@@ -69,6 +69,10 @@ DATABASE_NAME=name
 DATABASE_USERNAME=username
 DATABASE_PASSWORD=password
 
+NAME=admin
+EMAIL=admin@gmail.com
+PASSWORD=12345
+
 JWT_SECRET=secret
 JWT_ACCESS_TOKEN_EXP=1h
 ```
@@ -79,7 +83,7 @@ Creating the container:
 docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -p 5434:5432 postgres
 
 Running postgres container in terminal:
-docker exec -it container psql -U postgres
+docker exec -it container_name psql -U postgres
 
 Creating a data base:
 CREATE DATABASE data_base_name;
@@ -346,8 +350,7 @@ At first it'll be created an agent with the following data: email = admin@gmail.
 ### Before running
 - Modify the following data base options in .env file:
 ```
-DATABASE_HOST=db
-DATABASE_NAME=postgres
+DATABASE_HOST=project_db
 ```
 
 ### Running with Docker

@@ -37,6 +37,22 @@ const getUserByIdService = async (id) => {
   }
 }
 
+const getUserByEmailService = async (email) => {
+  try {
+    const response = await repository.getOne(Agent, email);
+    const data =  {};
+    
+    if(response) {
+      data.id = response.id;
+      data.email = response.email;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 const getUsersService = async () => {
   try {
     const response = await repository.get(Agent);
@@ -106,4 +122,5 @@ module.exports = {
   updateUserService,
   deleteUserService,
   logInUserService,
+  getUserByEmailService,
 }
