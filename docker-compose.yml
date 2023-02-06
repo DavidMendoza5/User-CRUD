@@ -16,7 +16,7 @@ services:
       - db
     links:
       - db
-  db: 
+  db:
     image: postgres:13.6-alpine
     container_name: project_db
     restart: unless-stopped
