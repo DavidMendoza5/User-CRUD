@@ -9,8 +9,8 @@ module.exports = (schema) => async (req, res, next) => {
       relations: ['agentId']
     }
 
-    const found = await repository.get(schema, filters);
-    if(found[0].agentId.id !== req.user.id) throw new Error('Acceso al recurso denegado');
+    const found = await repository.getOneWithFilters(schema, filters);
+    if(found.agentId.id !== req.user.id) throw new Error('Acceso al recurso denegado');
     next();
   } catch (error) {
     res.status(401).json({ error: error.message});
