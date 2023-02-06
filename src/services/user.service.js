@@ -11,7 +11,7 @@ const createUserService = async (data) => {
 
     const newUser = {
       id: response.id,
-      username: response.username,
+      email: response.email,
       name: response.name,
     }
 
@@ -27,7 +27,7 @@ const getUserByIdService = async (id) => {
     
     const data = {
       id: response.id,
-      username: response.username,
+      email: response.email,
       name: response.name,
     }
 
@@ -62,7 +62,7 @@ const getUsersService = async () => {
     const data = response.map((element) => {
       const newData = {
           id: element.id,
-          username: element.username,
+          email: element.email,
           name: element.name,
         }
         return newData;
