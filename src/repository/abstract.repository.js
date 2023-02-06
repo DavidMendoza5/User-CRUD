@@ -18,6 +18,15 @@ const getOne = async (schema, filter) => {
   }
 }
 
+const getOneWithFilters = async (schema, filter) => {
+  try {
+    const data = await dataSource.getRepository(schema).findOne(filter);
+    return data;
+  } catch (error) {
+    throw new Error('Error al buscar en la base de datos');
+  }
+}
+
 const get = async (schema, filters = {}) => {
   try {
     const data = await dataSource.getRepository(schema).find(filters);
@@ -47,6 +56,7 @@ const deleteData = async (schema, id) => {
 module.exports = {
   createInDB,
   getOne,
+  getOneWithFilters,
   get,
   update,
   deleteData,
