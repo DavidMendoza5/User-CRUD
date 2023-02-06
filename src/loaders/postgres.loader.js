@@ -6,7 +6,7 @@ const createConnection = async () => {
     await dataSource.initialize();
     await createAgentSeeder();
   } catch (error) {
-    console.log(error);
+    throw new Error(error.message)
   }
 };
 
