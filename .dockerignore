@@ -5,6 +5,7 @@ node_modules
 dockerfile
 docker-compose.yml
 .dockerignore
+docker
 
 # Others
 .env.example
